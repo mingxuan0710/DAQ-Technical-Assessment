@@ -77,6 +77,18 @@ code {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
+  .temperature-safe {
+    color: #10B981; /* Green */
+  }
+  
+  .temperature-nearing-unsafe {
+    color: #F59E0B; /* Yellow */
+  }
+  
+  .temperature-unsafe {
+    color: #EF4444; /* Red */
+  }
 }
 
 

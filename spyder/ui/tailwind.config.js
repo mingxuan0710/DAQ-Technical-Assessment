@@ -12,6 +12,9 @@ module.exports = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+			safe: '#10B981', // Green color for safe temperatures
+        	nearingUnsafe: '#F59E0B', // Yellow color for nearing unsafe temperatures
+        	unsafe: '#EF4444', // Red color for unsafe temperatures
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

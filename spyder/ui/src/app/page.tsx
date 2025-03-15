@@ -26,7 +26,7 @@ interface VehicleData {
  */
 export default function Page(): JSX.Element {
   const { setTheme } = useTheme()
-  const [temperature, setTemperature] = useState<any>(0)
+  const [temperature, setTemperature] = useState<number | null>(null)
   const [connectionStatus, setConnectionStatus] = useState<string>("Disconnected")
   const { lastJsonMessage, readyState }: { lastJsonMessage: VehicleData | null; readyState: ReadyState } = useWebSocket(
     WS_URL,
@@ -40,6 +40,7 @@ export default function Page(): JSX.Element {
    * Effect hook to handle WebSocket connection state changes.
    */
   useEffect(() => {
+    console.log("Current WebSocket readyState: ", readyState) 
     switch (readyState) {
       case ReadyState.OPEN:
         console.log("Connected to streaming service")
@@ -56,17 +57,16 @@ export default function Page(): JSX.Element {
         setConnectionStatus("Disconnected")
         break
     }
-  }, [])
+  }, [readyState])
 
   /**
    * Effect hook to handle incoming WebSocket messages.
    */
   useEffect(() => {
     console.log("Received: ", lastJsonMessage)
-    if (lastJsonMessage === null) {
-      return
+    if (lastJsonMessage && typeof lastJsonMessage.battery_temperature === "number") {
+      setTemperature(lastJsonMessage.battery_temperature)
     }
-    setTemperature(lastJsonMessage.battery_temperature)
   }, [lastJsonMessage])
 
   /**

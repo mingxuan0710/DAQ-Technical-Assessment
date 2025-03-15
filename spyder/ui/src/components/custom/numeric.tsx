@@ -17,9 +17,24 @@ function Numeric({ temp }: TemperatureProps) {
 
   // Justify your choice of implementation in brainstorming.md
 
+  const formattedTemp = temp.toFixed(3);
+
+  let temperatureClass = "";
+
+  if (temp < 20 || temp > 80) {
+    // Unsafe: below 20 or above 80
+    temperatureClass = "text-unsafe";
+  } else if ((temp >= 20 && temp < 25) || (temp > 75 && temp <= 80)) {
+    // Nearing Unsafe: between 20-25 or 75-80
+    temperatureClass = "text-nearingUnsafe";
+  } else {
+    // Safe: between 25 and 75
+    temperatureClass = "text-safe";
+  }
+
   return (
     <div className="text-foreground text-4xl font-bold">
-      {`${temp}°C`}
+      {`${formattedTemp}°C`}
     </div>
   );
 }
